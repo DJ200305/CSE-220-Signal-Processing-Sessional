@@ -81,7 +81,9 @@ def inverse_fourier_transform(ft_signal, frequencies, sampled_times):
     # use trapezoidal integration to calculate the real part
     # You have to return only the real part of the reconstructed signal
     for i in range(n):
-        reconstructed_signal[i] = np.trapz(ft_signal[0]*np.cos(2*np.pi*frequencies*sampled_times[i]),frequencies)
+        a = np.trapz(ft_signal[0]*np.cos(2*np.pi*frequencies*sampled_times[i]),frequencies,frequencies[1]-frequencies[0])
+        b = -np.trapz(ft_signal[1]*np.sin(2*np.pi*frequencies*sampled_times[i]),frequencies,frequencies[1]-frequencies[0])
+        reconstructed_signal[i] = a + b   
     return reconstructed_signal
 
 # Step 4.1: Reconstruct the signal using IFT
